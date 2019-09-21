@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>第二篇博客</title>
+      <link href="/2019/09/18/%E7%AC%AC%E4%BA%8C%E7%AF%87%E5%8D%9A%E5%AE%A2/"/>
+      <url>/2019/09/18/%E7%AC%AC%E4%BA%8C%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
+      
+        <content type="html"><![CDATA[<h1 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h1><iframe id="YoukuSource" height="460" width="100%" src="http://player.youku.com/embed/XMTU5NTQ2Mjc3Mg==" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe><iframe src="//player.bilibili.com/player.html?aid=17653359&cid=31213839&page=12" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="100%" height="460"> </iframe>内容1<a id="more"></a><hr><h1 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h1><p>内容2</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 博客 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 分享 </tag>
+            
+            <tag> 导航 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>第一篇博客</title>
+      <link href="/2019/09/03/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"/>
+      <url>/2019/09/03/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
+      
+        <content type="html"><![CDATA[<style type="text/css">switch-video-div {display:block;margin: 0 auto;padding: 1em 0;text-align: center;}button.switch-video-btn{display: inline;filter: none !important;border: none;background-color: #fafafa;}button.switch-video-btn > img {height: 30px;}button.switch-video-btn:hover {background-color: #efefef;filter: none !important;color: var(--c-green-hover);color:white;}</style><script>function chooseVideo(src_name){    if(src_name == 'bilibili') {        console.log("bilibili");        document.getElementById("bilibili").style.display = 'block';    } else if (src_name == 'youku') {        console.log("youku");        document.getElementById("bilibili").style.display = 'none';    } else if (src_name == 'youtube') {        console.log("youtube");        document.getElementById("bilibili").style.display = 'none';    }}function imgClick(){    console.log('Img click');}</script><div id="bilibili" style="display:none"><iframe src="//player.bilibili.com/player.html?aid=23207325&cid=38634561&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="100%" height="460"> </iframe></div><div class="switch-video-div">请选择视频源：<button class="switch-video-btn" onclick="chooseVideo('bilibili')">    <img class="icon" src="/images/assets/bilibili_icon.png" alt="Bilibili"></button><button class="switch-video-btn" onclick="chooseVideo('youtube')">    <img class="icon" src="/images/assets/youtube.png" alt="Youtube频道"></button></div><a id="more"></a><h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><hr><h2 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h2><p>内容</p><hr><h2 id="参考内容"><a href="#参考内容" class="headerlink" title="参考内容"></a>参考内容</h2><p>内容<br><a href="http://www.dongaomainland.cn" target="_blank" rel="noopener">www.dongaomainland.cn</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 分享 </tag>
+            
+            <tag> 梦想 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
