@@ -4,25 +4,25 @@
   
     
     <entry>
-      <title>第二篇博客</title>
-      <link href="/2019/09/18/%E7%AC%AC%E4%BA%8C%E7%AF%87%E5%8D%9A%E5%AE%A2/"/>
-      <url>/2019/09/18/%E7%AC%AC%E4%BA%8C%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
+      <title>python几个常用的数据处理机制</title>
+      <link href="/2019/09/24/python%E5%87%A0%E4%B8%AA%E5%B8%B8%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6/"/>
+      <url>/2019/09/24/python%E5%87%A0%E4%B8%AA%E5%B8%B8%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6/</url>
       
-        <content type="html"><![CDATA[<h1 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h1><p>内容1</p><a id="more"></a><hr><h1 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h1><p>内容2</p>]]></content>
+        <content type="html"><![CDATA[<p>数据是人工智能算法中的生产材料，其中会有大量与数据打交道的地方，其中会常用到3个与数据处理相关的机制。这里就讲讲如何通过它们，来实现数据的组拼、快捷地处理，以及与处理函数的映射等。</p><a id="more"></a><h1 id="zip函数"><a href="#zip函数" class="headerlink" title="zip函数"></a>zip函数</h1><p>该函数用来实现同维度列表之间的数据组拼。它的组拼是基于列向的。具体请看下面的样例代码1：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"></span><br><span class="line">listA = [1,2,3]</span><br><span class="line">listB = [4,5,6]</span><br><span class="line">aB = zip(listA, listB)</span><br><span class="line">print(aB)#python3为了节省内存，将listA与listB组拼得到了一个对象，这里打印的是该对象所在的地址</span><br><span class="line">print(list(aB)) #通过将对象转化为列表，就可看到数据的组成形式了</span><br><span class="line"></span><br><span class="line"># 遍历组拼的数据对象，并进行处理</span><br><span class="line">for i,j in zip(listA,listB):</span><br><span class="line">print(i*2, j*2)</span><br></pre></td></tr></table></figure><p>代码1执行输出结果：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;zip object at 0x000001E049698708&gt;</span><br><span class="line">[(1, 4), (2, 5), (3, 6)]</span><br><span class="line">2 8</span><br><span class="line">4 10</span><br><span class="line">6 12</span><br></pre></td></tr></table></figure><h1 id="lambda函数"><a href="#lambda函数" class="headerlink" title="lambda函数"></a>lambda函数</h1><p>它其实就是匿名函数，没有函数名，聚焦在函数执行语句上，对于语句简单时，这种随写随丢的方式特别合适，也与数据转换的情境相吻合。<br>具体请看下面的样例代码2：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"></span><br><span class="line">x = int(input(&apos;请输入数字x：&apos;)) #这里通过int将您输入的字符转换成整数</span><br><span class="line">y = int(input(&apos;请输入数字y：&apos;))</span><br><span class="line"></span><br><span class="line">z = lambda i,j: i + j</span><br><span class="line">print(z(x, y))</span><br></pre></td></tr></table></figure><p>代码2执行输出结果：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">请输入数字x：7</span><br><span class="line">请输入数字y：9</span><br><span class="line">16</span><br></pre></td></tr></table></figure><h1 id="map函数"><a href="#map函数" class="headerlink" title="map函数"></a>map函数</h1><p>其作用就是把数据与函数绑定在一起，把指定的数据交由指定的函数去处理。<br>具体请看下面的样例代码3：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"></span><br><span class="line">def function(x, y):</span><br><span class="line">return (x + y)</span><br><span class="line"></span><br><span class="line">listA = list(map(function, [2], [4]))</span><br><span class="line">print(listA)</span><br><span class="line"></span><br><span class="line">listB = list(map(function, [2,3], [4,5]))</span><br><span class="line">print(listB)</span><br></pre></td></tr></table></figure><p>代码3执行输出结果：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[6]</span><br><span class="line">[6, 8]</span><br></pre></td></tr></table></figure>]]></content>
       
       
       <categories>
           
-          <category> 博客 </category>
+          <category> 人工智能学习 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> 分享 </tag>
+            <tag> 零基础 </tag>
             
-            <tag> 导航 </tag>
+            <tag> Python语言 </tag>
             
         </tags>
       
@@ -31,19 +31,79 @@
     
     
     <entry>
-      <title>第一篇博客</title>
-      <link href="/2019/09/03/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"/>
-      <url>/2019/09/03/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
+      <title>错误处理Try</title>
+      <link href="/2019/09/23/%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86Try/"/>
+      <url>/2019/09/23/%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86Try/</url>
       
-        <content type="html"><![CDATA[<style type="text/css">switch-video-div {display:block;margin: 0 auto;padding: 1em 0;text-align: center;}button.switch-video-btn{display: inline;filter: none !important;border: none;background-color: #fafafa;}button.switch-video-btn > img {height: 30px;}button.switch-video-btn:hover {background-color: #efefef;filter: none !important;color: var(--c-green-hover);color:white;}</style><script>function chooseVideo(src_name){    if(src_name == 'bilibili') {        console.log("bilibili");        document.getElementById("bilibili").style.display = 'block';    } else if (src_name == 'youku') {        console.log("youku");        document.getElementById("bilibili").style.display = 'none';    } else if (src_name == 'youtube') {        console.log("youtube");        document.getElementById("bilibili").style.display = 'none';    }}function imgClick(){    console.log('Img click');}</script><div id="bilibili" style="display:none"><iframe src="//player.bilibili.com/player.html?aid=18965449&cid=30932525&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="100%" height="460"> </iframe></div><div class="switch-video-div">请选择视频源：<button class="switch-video-btn" onclick="chooseVideo('bilibili')">    <img class="icon" src="/images/assets/bilibili_icon.png" alt="Bilibili"></button><button class="switch-video-btn" onclick="chooseVideo('youtube')">    <img class="icon" src="/images/assets/youtube.png" alt="Youtube频道"></button></div><a id="more"></a><h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><hr><h2 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h2><p>内容</p><hr><h2 id="参考内容"><a href="#参考内容" class="headerlink" title="参考内容"></a>参考内容</h2><p>内容<br><a href="http://www.dongaomainland.cn" target="_blank" rel="noopener">www.dongaomainland.cn</a></p>]]></content>
+        <content type="html"><![CDATA[<p>程序中常会有系统资源的请求与访问，比如对某文件发出请求，但此时系统不一定确保有此资源，或资源你有访问的权限让你访问，因此程序无法保障这些语句都能够成功获得响应或执行，也就是会发生除正常情况之外的情形—异常。这些异常不加处理的话，就会导致程序的业务逻辑运转不灵。于是，python如Java语言一样，有错误处理的机制，它的语法格式如下：try: … except … as …:</p><a id="more"></a><p>下面是样例代码1：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"></span><br><span class="line">try:</span><br><span class="line">file = open(&apos;error.txt&apos;, &apos;r&apos;)# 由于文件不存在，会出错</span><br><span class="line">except Exception as e: # 把错误存放在e中</span><br><span class="line">print(e)</span><br></pre></td></tr></table></figure><p>下面是代码1的执行结果：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[Errno 2] No such file or directory: &apos;error.txt&apos;</span><br></pre></td></tr></table></figure><p>事实上，我们的异常处理可能不仅会打出错误是什么，往往会让用户针对错误，进行对应的操作。<br>因此，修改代码1，得到样例代码2：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">样例代码的执行结果如下：</span><br></pre></td></tr></table></figure><p>[Errno 2] No such file or directory: ‘error.txt’<br>你想要创建这个新的文件吗？y<br>```<br>在程序当前执行的目录下，我们将看到新增加了文件，error.txt，而且文中的内容如下：<br><img src="/images/assets/ailearning/error.jpg" alt="error.txx的内容"></p>]]></content>
       
+      
+      <categories>
+          
+          <category> 人工智能学习 </category>
+          
+      </categories>
       
       
         <tags>
             
-            <tag> 分享 </tag>
+            <tag> 零基础 </tag>
             
-            <tag> 梦想 </tag>
+            <tag> Python语言 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Python循环退出</title>
+      <link href="/2019/09/23/Python%E5%BE%AA%E7%8E%AF%E9%80%80%E5%87%BA/"/>
+      <url>/2019/09/23/Python%E5%BE%AA%E7%8E%AF%E9%80%80%E5%87%BA/</url>
+      
+        <content type="html"><![CDATA[<p>任何编程语言的初学者，都会面临一个窘境：程序跑着，退不出来。也是循环代码段，进入了常说的死循环。退出循环，语法上常有3种情形。掌握它们，我们基于Python的程序，就可进可出了。</p><a id="more"></a><h1 id="通过循环条件语句False"><a href="#通过循环条件语句False" class="headerlink" title="通过循环条件语句False"></a>通过循环条件语句False</h1><p>循环体执行前，会通过一个条件语句，来判断是否需要执行循环体：<br>    - 1、    如果条件语句为True，则执行；<br>    - 2、    如果条件语句为False，则跳过循环体，执行其后的语句。<br>下面是样例代码1：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"></span><br><span class="line">condition = True</span><br><span class="line">while condition:</span><br><span class="line">changeFactor = input(&apos;请输入：&apos;)</span><br><span class="line">if changeFactor == &apos;1&apos;:</span><br><span class="line">condition = False</span><br><span class="line">else:</span><br><span class="line">pass</span><br><span class="line">print(&apos;循环结束！&apos;)</span><br></pre></td></tr></table></figure><p>下面是代码1执行结果的输出：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">请输入：0</span><br><span class="line">请输入：2</span><br><span class="line">请输入：1</span><br><span class="line">循环结束！</span><br></pre></td></tr></table></figure><hr><h1 id="break语句"><a href="#break语句" class="headerlink" title="break语句"></a>break语句</h1><p>其实，我们在循环体内如果发现情况不对，有些情况下，不用继续执行循环体中的其它语句，可以直接从体内跳出。<br>下面是在样例代码1上修改得到的代码2：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"></span><br><span class="line">while True:</span><br><span class="line">changeFactor = input(&apos;请输入：&apos;)</span><br><span class="line">if changeFactor == &apos;1&apos;:</span><br><span class="line">break</span><br><span class="line">else:</span><br><span class="line">pass</span><br><span class="line">print(&apos;我们还在循环体内&apos;)</span><br><span class="line">print(&apos;循环结束！&apos;)</span><br></pre></td></tr></table></figure><p>下面是代码2执行结果的输出：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">请输入：2</span><br><span class="line">我们还在循环体内</span><br><span class="line">请输入：4</span><br><span class="line">我们还在循环体内</span><br><span class="line">请输入：1</span><br><span class="line">循环结束！</span><br></pre></td></tr></table></figure><hr><h1 id="continue语句"><a href="#continue语句" class="headerlink" title="continue语句"></a>continue语句</h1><p>该语句也是从循环体内退出，但它是从此次循环退出，不会转而去执行循环体外的下一条语句，而是继续下一次的循环，也就是跳转到循环体的开头，继续执行。初学者，特别容易把它与break语句混淆，常写写代码就好了，实在脑子知短路，不妨到这篇博文看看好了。<br>下面是在代码2上修改得到的代码3：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"></span><br><span class="line">while True:</span><br><span class="line">changeFactor = input(&apos;请输入：&apos;)</span><br><span class="line">if changeFactor == &apos;1&apos;:</span><br><span class="line">continue</span><br><span class="line">else:</span><br><span class="line">pass</span><br><span class="line">print(&apos;我们还在循环体内&apos;)</span><br><span class="line">print(&apos;循环结束！&apos;)</span><br></pre></td></tr></table></figure><p>下面是代码3执行结果的输出:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">请输入：2</span><br><span class="line">我们还在循环体内</span><br><span class="line">请输入：4</span><br><span class="line">我们还在循环体内</span><br><span class="line">请输入：1# 没有打印输出“我们还在循环体内”</span><br><span class="line">请输入：</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 人工智能学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 零基础 </tag>
+            
+            <tag> Python语言 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>人工智能教程清单</title>
+      <link href="/2019/09/23/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%95%99%E7%A8%8B%E6%B8%85%E5%8D%95/"/>
+      <url>/2019/09/23/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%95%99%E7%A8%8B%E6%B8%85%E5%8D%95/</url>
+      
+        <content type="html"><![CDATA[<p>这里列出人工智能算法教学的内容清单。内容按目录顺序给出，也基本排出了我们教学内容的计划。顺着这个计划去学习，哪怕你是零基础，只要锲而不舍，勤动手，相信您也能够成为一个AI算法的砖家。</p><a id="more"></a><h1 id="零基础准备篇"><a href="#零基础准备篇" class="headerlink" title="零基础准备篇"></a>零基础准备篇</h1><h2 id="Python基础语法"><a href="#Python基础语法" class="headerlink" title="Python基础语法"></a>Python基础语法</h2><p>参见：<br>    - <a href="https://www.runoob.com/python/python-tutorial.html" target="_blank" rel="noopener">https://www.runoob.com/python/python-tutorial.html</a><br>    - <a href="https://www.runoob.com/python3/python3-tutorial.html" target="_blank" rel="noopener">https://www.runoob.com/python3/python3-tutorial.html</a><br>前者是针对python2的，后者是针对python3的。我们教程与样例，是基于python3的，你就看后一个就可以。当然，您想进一步深入了解与掌握，也可私下与我们再沟通。</p><h2 id="Numpy与Pandas"><a href="#Numpy与Pandas" class="headerlink" title="Numpy与Pandas"></a>Numpy与Pandas</h2><p>人工智能算法，其实是数据价值发掘的算法，特别是大数据处理的算法。因此，我们有必要对数据的组织形式，以及创建样例测试数据，应有所了解。</p><h2 id="Matplotlib"><a href="#Matplotlib" class="headerlink" title="Matplotlib"></a>Matplotlib</h2><h2 id="数据到底长什么样子，数据处理后又是什么样子，就是靠这个画图库来展现给大家的。"><a href="#数据到底长什么样子，数据处理后又是什么样子，就是靠这个画图库来展现给大家的。" class="headerlink" title="数据到底长什么样子，数据处理后又是什么样子，就是靠这个画图库来展现给大家的。"></a>数据到底长什么样子，数据处理后又是什么样子，就是靠这个画图库来展现给大家的。</h2><h1 id="机器学习篇"><a href="#机器学习篇" class="headerlink" title="机器学习篇"></a>机器学习篇</h1><p>也就是Machine Learning（ML）。由于这已不是我们当下人工智能领域流行的，所以我们不用把它当重点。<br>如果您还想进一步了解与掌握，可参见：<br>    - <a href="https://www.cnblogs.com/pinard/category/894692.html" target="_blank" rel="noopener">https://www.cnblogs.com/pinard/category/894692.html</a><br>    - 或私下与我们沟通</p><h2 id="机器学习介绍"><a href="#机器学习介绍" class="headerlink" title="机器学习介绍"></a>机器学习介绍</h2><p>就是讲讲什么是机器学习。</p><h2 id="SKlearn"><a href="#SKlearn" class="headerlink" title="SKlearn"></a>SKlearn</h2><p>这是个机器学习中常用的库。里面有许多ML相关的，成熟的算法。</p><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><h3 id="选择学习"><a href="#选择学习" class="headerlink" title="选择学习"></a>选择学习</h3><h3 id="通用学习"><a href="#通用学习" class="headerlink" title="通用学习"></a>通用学习</h3><h3 id="数据相关的库"><a href="#数据相关的库" class="headerlink" title="数据相关的库"></a>数据相关的库</h3><h3 id="常用属性与功能"><a href="#常用属性与功能" class="headerlink" title="常用属性与功能"></a>常用属性与功能</h3><h3 id="正规化"><a href="#正规化" class="headerlink" title="正规化"></a>正规化</h3><h3 id="神经网络检验"><a href="#神经网络检验" class="headerlink" title="神经网络检验"></a>神经网络检验</h3><h3 id="交叉验证"><a href="#交叉验证" class="headerlink" title="交叉验证"></a>交叉验证</h3><h3 id="模型保存"><a href="#模型保存" class="headerlink" title="模型保存"></a>模型保存</h3><hr><h1 id="神经网络篇"><a href="#神经网络篇" class="headerlink" title="神经网络篇"></a>神经网络篇</h1><p>ML对应最多一个词，就是DL（Deep Learning）深度学习。但从学习这门技术的角度，我们更愿意从神经网络出发，因为深度学习就是深度的神经网络。</p><h2 id="人工神经网络与生物神经网络区别"><a href="#人工神经网络与生物神经网络区别" class="headerlink" title="人工神经网络与生物神经网络区别"></a>人工神经网络与生物神经网络区别</h2><p>神经网络是仿生物的神经网络而诞生的，它能取代生物神经网络吗？</p><h2 id="神经网络再介绍"><a href="#神经网络再介绍" class="headerlink" title="神经网络再介绍"></a>神经网络再介绍</h2><p>究竟什么是神经网络？</p><h2 id="卷积神经网络CNN"><a href="#卷积神经网络CNN" class="headerlink" title="卷积神经网络CNN"></a>卷积神经网络CNN</h2><p>什么是CNN，它的工作原理是怎样的？</p><h2 id="循环神经网络RNN"><a href="#循环神经网络RNN" class="headerlink" title="循环神经网络RNN"></a>循环神经网络RNN</h2><p>什么是RNN？它的工作原理是怎样的？</p><h2 id="LSTM"><a href="#LSTM" class="headerlink" title="LSTM"></a>LSTM</h2><p>什么是LSTM？它的工作原理是怎样的？</p><h2 id="Autoencoder"><a href="#Autoencoder" class="headerlink" title="Autoencoder"></a>Autoencoder</h2><p>什么是Autoencoder？它的工作原理是怎样的？</p><h2 id="GAN"><a href="#GAN" class="headerlink" title="GAN"></a>GAN</h2><p>什么是GAN？它的工作原理是怎样的？</p><h2 id="神经网络不是神话"><a href="#神经网络不是神话" class="headerlink" title="神经网络不是神话"></a>神经网络不是神话</h2><p>再进一步认识，到底什么是神经网络。</p><h2 id="梯度下降"><a href="#梯度下降" class="headerlink" title="梯度下降"></a>梯度下降</h2><p>这是神经网络算法有用的关键，一定要搞懂哦。</p><h2 id="迁移学习"><a href="#迁移学习" class="headerlink" title="迁移学习"></a>迁移学习</h2><h2 id="什么是迁移学习？它的工作原理是怎样的？"><a href="#什么是迁移学习？它的工作原理是怎样的？" class="headerlink" title="什么是迁移学习？它的工作原理是怎样的？"></a>什么是迁移学习？它的工作原理是怎样的？</h2><h1 id="进阶篇"><a href="#进阶篇" class="headerlink" title="进阶篇"></a>进阶篇</h1><h2 id="模型优化"><a href="#模型优化" class="headerlink" title="模型优化"></a>模型优化</h2><p>如何让模型预测更准？如何让算法可以更快地训练出模型？</p><h2 id="强化学习"><a href="#强化学习" class="headerlink" title="强化学习"></a>强化学习</h2><p>什么是强化学习。它是如何工作的？</p><h2 id="进化学习"><a href="#进化学习" class="headerlink" title="进化学习"></a>进化学习</h2><p>什么是强化学习。它是如何工作的？</p><h1 id="实战篇"><a href="#实战篇" class="headerlink" title="实战篇"></a>实战篇</h1><h2 id="Tensorflow"><a href="#Tensorflow" class="headerlink" title="Tensorflow"></a>Tensorflow</h2><p>它基本上就是DL的代名词了。这是DL开发的一套框架。</p><h2 id="Pytorch"><a href="#Pytorch" class="headerlink" title="Pytorch"></a>Pytorch</h2><p>它是DL开发的另一套框架。</p><h2 id="Theano"><a href="#Theano" class="headerlink" title="Theano"></a>Theano</h2><p>它又是一套DL开发的框架。</p><h2 id="Keras"><a href="#Keras" class="headerlink" title="Keras"></a>Keras</h2><p>它对TensorFlow与Theano进行了封装，现在DL的开发基本就用它了。</p><h2 id="从头做个文章情感倾向判断仪"><a href="#从头做个文章情感倾向判断仪" class="headerlink" title="从头做个文章情感倾向判断仪"></a>从头做个文章情感倾向判断仪</h2><p>这是基于LSTM实现一个对文章情感倾向，进行预判的算法与模型，其中还会用到Attension机制。</p><pre><code>注：乍一看，里面有许多专有的名词，甚至是纯英文的（我不确定该如何翻译，直接引用英文了），感觉好难啊。根据我们的经验，坚持下去，最终您会发现它们也是有迹可循的^_^</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 人工智能学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 清单 </tag>
+            
+            <tag> 学习路线 </tag>
             
         </tags>
       

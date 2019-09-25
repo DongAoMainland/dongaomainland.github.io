@@ -71,7 +71,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="零基础,Python语言,">
 
 
 
@@ -82,13 +82,20 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="东澳大陆">
-<meta property="og:url" content="https://dongaomainland.github.io/archives/2019/09/index.html">
+<meta name="description" content="程序中常会有系统资源的请求与访问，比如对某文件发出请求，但此时系统不一定确保有此资源，或资源你有访问的权限让你访问，因此程序无法保障这些语句都能够成功获得响应或执行，也就是会发生除正常情况之外的情形—异常。这些异常不加处理的话，就会导致程序的业务逻辑运转不灵。于是，python如Java语言一样，有错误处理的机制，它的语法格式如下：try: … except … as …:">
+<meta name="keywords" content="零基础,Python语言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="错误处理Try">
+<meta property="og:url" content="https://dongaomainland.github.io/2019/09/23/错误处理Try/index.html">
 <meta property="og:site_name" content="东澳大陆">
+<meta property="og:description" content="程序中常会有系统资源的请求与访问，比如对某文件发出请求，但此时系统不一定确保有此资源，或资源你有访问的权限让你访问，因此程序无法保障这些语句都能够成功获得响应或执行，也就是会发生除正常情况之外的情形—异常。这些异常不加处理的话，就会导致程序的业务逻辑运转不灵。于是，python如Java语言一样，有错误处理的机制，它的语法格式如下：try: … except … as …:">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://dongaomainland.github.io/images/assets/ailearning/error.jpg">
+<meta property="og:updated_time" content="2019-09-23T12:27:46.360Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="东澳大陆">
+<meta name="twitter:title" content="错误处理Try">
+<meta name="twitter:description" content="程序中常会有系统资源的请求与访问，比如对某文件发出请求，但此时系统不一定确保有此资源，或资源你有访问的权限让你访问，因此程序无法保障这些语句都能够成功获得响应或执行，也就是会发生除正常情况之外的情形—异常。这些异常不加处理的话，就会导致程序的业务逻辑运转不灵。于是，python如Java语言一样，有错误处理的机制，它的语法格式如下：try: … except … as …:">
+<meta name="twitter:image" content="https://dongaomainland.github.io/images/assets/ailearning/error.jpg">
 
 
 
@@ -118,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="https://dongaomainland.github.io/archives/2019/09/">
+  <link rel="canonical" href="https://dongaomainland.github.io/2019/09/23/错误处理Try/">
 
 
 
 
 
-  <title>归档 | 东澳大陆</title>
+  <title>错误处理Try | 东澳大陆</title>
   
 
 
@@ -143,7 +150,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
     <a href="https://github.com/DongAoMainland" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
     
@@ -280,177 +287,282 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dongaomainland.github.io/2019/09/23/错误处理Try/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tony&Lily">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/assets/dongaomainland_9.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="东澳大陆">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">错误处理Try</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-23T19:44:37+08:00">
+                2019-09-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 4 篇日志。 继续努力。
-      </span>
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/人工智能学习/" itemprop="url" rel="index">
+                    <span itemprop="name">人工智能学习</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
-          </div>
-        
-        
 
-        
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/09/23/错误处理Try/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/09/23/错误处理Try/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/09/24/python几个常用的数据处理机制/" itemprop="url">
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文阅读量 <i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
               
-                <span itemprop="name">python几个常用的数据处理机制</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  340
+                </span>
               
-            </a>
-        
-      </h2>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-09-24T20:25:56+08:00" content="2019-09-24">
-          09-24
-        </time>
-      </div>
+              
+                <span class="post-meta-divider">|</span>
+              
 
-    </header>
-  </article>
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
 
+          
 
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/09/23/错误处理Try/" itemprop="url">
-              
-                <span itemprop="name">错误处理Try</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-09-23T19:44:37+08:00" content="2019-09-23">
-          09-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
+      
+        <p>程序中常会有系统资源的请求与访问，比如对某文件发出请求，但此时系统不一定确保有此资源，或资源你有访问的权限让你访问，因此程序无法保障这些语句都能够成功获得响应或执行，也就是会发生除正常情况之外的情形—异常。这些异常不加处理的话，就会导致程序的业务逻辑运转不灵。于是，python如Java语言一样，有错误处理的机制，它的语法格式如下：try: … except … as …:</p>
+<a id="more"></a>
+<p>下面是样例代码1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"></span><br><span class="line">try:</span><br><span class="line">	file = open(&apos;error.txt&apos;, &apos;r&apos;)	# 由于文件不存在，会出错</span><br><span class="line">except Exception as e: # 把错误存放在e中</span><br><span class="line">	print(e)</span><br></pre></td></tr></table></figure>
 
-        
-        
+<p>下面是代码1的执行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[Errno 2] No such file or directory: &apos;error.txt&apos;</span><br></pre></td></tr></table></figure>
 
-        
+<p>事实上，我们的异常处理可能不仅会打出错误是什么，往往会让用户针对错误，进行对应的操作。<br>因此，修改代码1，得到样例代码2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">样例代码的执行结果如下：</span><br></pre></td></tr></table></figure>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/09/23/Python循环退出/" itemprop="url">
-              
-                <span itemprop="name">Python循环退出</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-09-23T15:20:29+08:00" content="2019-09-23">
-          09-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+<p>[Errno 2] No such file or directory: ‘error.txt’<br>你想要创建这个新的文件吗？y<br>```<br>在程序当前执行的目录下，我们将看到新增加了文件，error.txt，而且文中的内容如下：<br><img src="/images/assets/ailearning/error.jpg" alt="error.txx的内容"></p>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/09/23/人工智能教程清单/" itemprop="url">
-              
-                <span itemprop="name">人工智能教程清单</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-09-23T11:40:57+08:00" content="2019-09-23">
-          09-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/assets/DongaoAILearning_2.jpg" alt="Tony&Lily wechat" style="width: 200px; max-width: 100%;">
+    <div>您可以扫描上面的二维码，关注我哦！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您也可以给我们打赏哦！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/assets/WeixinPay.jpg" alt="Tony&Lily 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Tony&Lily
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://dongaomainland.github.io/2019/09/23/错误处理Try/" title="错误处理Try">https://dongaomainland.github.io/2019/09/23/错误处理Try/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/零基础/" rel="tag"># 零基础</a>
+          
+            <a href="/tags/Python语言/" rel="tag"># Python语言</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/23/Python循环退出/" rel="next" title="Python循环退出">
+                <i class="fa fa-chevron-left"></i> Python循环退出
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/24/python几个常用的数据处理机制/" rel="prev" title="python几个常用的数据处理机制">
+                python几个常用的数据处理机制 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -458,6 +570,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -726,6 +845,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
