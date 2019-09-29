@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/assets/favicon_180.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/assets/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/assets/favicon_16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/assets/东澳_2.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="零基础,Python语言,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="threading让程序更灵活，但在数据处理效率上，并不能提高太多。而multiprocessing，可以充分利用当下计算机多处理器的特性，可以让任务执行分摊至各个处理器，从而成倍地提高效率。">
+<meta name="keywords" content="零基础,Python语言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python多进程">
+<meta property="og:url" content="https://dongaomainland.github.io/2019/09/28/python多进程/index.html">
+<meta property="og:site_name" content="东澳大陆">
+<meta property="og:description" content="threading让程序更灵活，但在数据处理效率上，并不能提高太多。而multiprocessing，可以充分利用当下计算机多处理器的特性，可以让任务执行分摊至各个处理器，从而成倍地提高效率。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-09-29T15:07:15.240Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python多进程">
+<meta name="twitter:description" content="threading让程序更灵活，但在数据处理效率上，并不能提高太多。而multiprocessing，可以充分利用当下计算机多处理器的特性，可以让任务执行分摊至各个处理器，从而成倍地提高效率。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://dongaomainland.github.io/2019/09/28/python多进程/">
+
+
+
+
+
+  <title>python多进程 | 东澳大陆</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/DongAoMainland" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">东澳大陆</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dongaomainland.github.io/2019/09/28/python多进程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tony&Lily">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/assets/dongaomainland_9.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="东澳大陆">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">python多进程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-28T10:26:17+08:00">
+                2019-09-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/人工智能学习/" itemprop="url" rel="index">
+                    <span itemprop="name">人工智能学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/09/28/python多进程/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/09/28/python多进程/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文阅读量 <i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.8k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>threading让程序更灵活，但在数据处理效率上，并不能提高太多。而multiprocessing，可以充分利用当下计算机多处理器的特性，可以让任务执行分摊至各个处理器，从而成倍地提高效率。</p>
+<a id="more"></a>
+<h1 id="增加进程"><a href="#增加进程" class="headerlink" title="增加进程"></a>增加进程</h1><p>下面则是简单一个例子，将在主进程中，再增加一个子进程。具体看下面的样例代码1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"></span><br><span class="line">import multiprocessing as mp</span><br><span class="line"></span><br><span class="line"># 定义进程执行体函数</span><br><span class="line">def job(a,d):</span><br><span class="line">    print(&apos;一个新的进程运行了！&apos;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__==&apos;__main__&apos;: # 如此声明，则确保下面的程序体属于主程序对象个体</span><br><span class="line">	print(&apos;主程序运行着&apos;)</span><br><span class="line">	# 这里直接使用系统类Process来创建进程对象，没有去新建一个子类。（线程对象也可采用类似方法创建）</span><br><span class="line">	p1 = mp.Process(target=job,args=(1,2)) # 创建子进程对象</span><br><span class="line">	p1.start()</span><br><span class="line">	p1.join()</span><br></pre></td></tr></table></figure>
+
+<p>代码执行结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">主程序运行着</span><br><span class="line">一个新的进程运行了！</span><br></pre></td></tr></table></figure>
+
+<p>这里主要是看看子进程与主进程的并发执行，与多线程的效率对比，在下面进一步详述。</p>
+<h1 id="数据处理进程将数据输入输出到Queue"><a href="#数据处理进程将数据输入输出到Queue" class="headerlink" title="数据处理进程将数据输入输出到Queue"></a>数据处理进程将数据输入输出到Queue</h1><p>像多线程一样，多进程执行体函数也是没有返回值的（该函数在后台运行，如果有返回值，运行完了由谁接收？），所以要使用Queue来存储多个进程的运算结果。<br>来看样例代码2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"></span><br><span class="line">import multiprocessing as mp</span><br><span class="line"></span><br><span class="line"># 定义进程执行体函数</span><br><span class="line">def job(q,no):</span><br><span class="line">    res=0</span><br><span class="line">    if(no == 1):</span><br><span class="line">    	num = 100</span><br><span class="line">    else:</span><br><span class="line">    	num = 1000</span><br><span class="line">    for i in range(num):</span><br><span class="line">        res+=i+i**2+i**3</span><br><span class="line">    q.put(res)    # 进程将处理结果放入队列，队列的同步原语，确保了队列中元素的唯一性</span><br><span class="line"></span><br><span class="line">if __name__==&apos;__main__&apos;:</span><br><span class="line">    q = mp.Queue()</span><br><span class="line">    p1 = mp.Process(target=job,args=(q,1)) # args是参数列表，当只有一个值时，其后应加&quot;,&quot;,表示可迭代，否则执行会报错</span><br><span class="line">    p2 = mp.Process(target=job,args=(q,2))</span><br><span class="line">    p1.start()</span><br><span class="line">    p2.start()</span><br><span class="line">    </span><br><span class="line">    p1.join()</span><br><span class="line">    p2.join()</span><br><span class="line">    res1 = q.get()</span><br><span class="line">    res2 = q.get()</span><br><span class="line">    print(res1)</span><br><span class="line">    print(res2)</span><br><span class="line">    print(res1+res2)</span><br></pre></td></tr></table></figure>
+
+<p>代码执行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">24835800 # 先进先出队列的第一个元素被取出</span><br><span class="line">249833583000 # 先进先出队列的第二个元素被取出</span><br><span class="line">249858418800</span><br></pre></td></tr></table></figure>
+
+<p><em>注：我们并不能确定Queue中的元素，是由哪个进程放的。哪个进程先被执行队列的存放，那它就先获得访问的权利</em></p>
+<h1 id="多线程与多进程间的效率对比"><a href="#多线程与多进程间的效率对比" class="headerlink" title="多线程与多进程间的效率对比"></a>多线程与多进程间的效率对比</h1><p>下面是本次学习最为重要的内容：比较多进程、多线程与单线程这3种情况下，对同样任务所消耗的时间。<br>下面是样例代码3：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"></span><br><span class="line">import multiprocessing as mp</span><br><span class="line">import threading as td</span><br><span class="line">import time # 该模块与时间相关，这里用来计算各方式下所耗时间</span><br><span class="line"></span><br><span class="line"># 定义进程执行体函数，该函数将进行较大规模的数据处理</span><br><span class="line">def job(q):</span><br><span class="line">    res = 0</span><br><span class="line">    for i in range(1000000):</span><br><span class="line">        res += i + i**2 + i**3</span><br><span class="line">    q.put(res) # queue</span><br><span class="line"></span><br><span class="line"># 采用多进程的方式，调用job函数，进行大规模数据处理</span><br><span class="line">def multiProcess():</span><br><span class="line">    q = mp.Queue()</span><br><span class="line">    p1 = mp.Process(target=job, args=(q,))</span><br><span class="line">    p2 = mp.Process(target=job, args=(q,))</span><br><span class="line">    p1.start()</span><br><span class="line">    p2.start()</span><br><span class="line">    p1.join()</span><br><span class="line">    p2.join()</span><br><span class="line">    res1 = q.get()</span><br><span class="line">    res2 = q.get()</span><br><span class="line">    print(&apos;multiprocess:&apos;,res1 + res2)</span><br><span class="line"></span><br><span class="line"># 采用多线程的方式，调用job()函数，进行大规模的数据处理</span><br><span class="line">def multiThread():</span><br><span class="line">    q = mp.Queue() # thread可放入process同样的queue中</span><br><span class="line">    t1 = td.Thread(target=job, args=(q,))</span><br><span class="line">    t2 = td.Thread(target=job, args=(q,))</span><br><span class="line">    t1.start()</span><br><span class="line">    t2.start()</span><br><span class="line">    t1.join()</span><br><span class="line">    t2.join()</span><br><span class="line">    res1 = q.get()</span><br><span class="line">    res2 = q.get()</span><br><span class="line">    print(&apos;multithread:&apos;, res1 + res2)</span><br><span class="line">    </span><br><span class="line"># 采用普通函数的方式，进行同样规模的数据处理</span><br><span class="line">def normal():</span><br><span class="line">    res = 0</span><br><span class="line">    for _ in range(2): # 前面的多进程与多线程都有2个，为了达到同规模的计算，这里也就循环了2次</span><br><span class="line">        for i in range(1000000):</span><br><span class="line">            res += i + i**2 + i**3</span><br><span class="line">    print(&apos;normal:&apos;, res)</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    st = time.time()</span><br><span class="line">    normal()</span><br><span class="line">    st1 = time.time()</span><br><span class="line">    print(&apos;normal time:&apos;, st1 - st)</span><br><span class="line">    multiThread()</span><br><span class="line">    st2 = time.time()</span><br><span class="line">    print(&apos;multithread time:&apos;, st2 - st1)</span><br><span class="line">    multiProcess()</span><br><span class="line">    print(&apos;multiprocess time:&apos;, time.time() - st2)</span><br></pre></td></tr></table></figure>
+
+<p>代码3执行结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">normal: 499999666667166666000000</span><br><span class="line">normal time: 1.5309014320373535</span><br><span class="line">multithread: 499999666667166666000000</span><br><span class="line">multithread time: 1.6715011596679688</span><br><span class="line">multiprocess: 499999666667166666000000</span><br><span class="line">multiprocess time: 0.9295573234558105</span><br></pre></td></tr></table></figure>
+
+<p>从结果来看，效率的高低排序为：多进程 &gt; 普通 &gt; 多线程。</p>
+<h1 id="进程池"><a href="#进程池" class="headerlink" title="进程池"></a>进程池</h1><p>通过进程池，可以解决进程执行体函数没有返回值等问题。具体先来看样例代码4：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"></span><br><span class="line">import multiprocessing as mp</span><br><span class="line"></span><br><span class="line"># 定义进程执行体函数，该函数将进行较大规模的数据处理</span><br><span class="line">def job(x):</span><br><span class="line">    return x * x </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 采用多进程的方式，调用job函数，进行大规模数据处理</span><br><span class="line">def multiProcess():</span><br><span class="line">    # 定义一个Pool对象</span><br><span class="line">    pool = mp.Pool()</span><br><span class="line">    # 有了该对象后，就可将进程池与进程执行体函数映射起来。我们往该池里丢数据，池子会执行该函数，并返回值。有返回值，是Pool与process最大的不同。</span><br><span class="line">    res = pool.map(job, range(10))</span><br><span class="line">    print(res)</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    multiProcess()</span><br></pre></td></tr></table></figure>
+
+<p>代码执行结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[0, 1, 4, 9, 16, 25, 36, 49, 64, 81]</span><br></pre></td></tr></table></figure>
+
+<p>当然，在定义进程池时，可以指定要用的CPU核数，这样就可以指定进程池的进程数。这里就不讲例子了，大家可以自己编写体会。<br>下面要讲的是一个替代map()的进程输出方式。该方式叫apply_async()，不同于map的输入数据是数组类型，也就是可接收多条数据的输入，它接收的值是可迭代的，这就意味着，其传入值后面要加”,”，也意味着，它一次只能传进一个值，也就是一次取一条数据放到一个CPU核中处理。另外返回值不能直接返回，只能通过get()方法获取。<br>来看样例代码5：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"></span><br><span class="line">import multiprocessing as mp</span><br><span class="line"></span><br><span class="line"># 定义进程执行体函数，该函数将进行较大规模的数据处理</span><br><span class="line">def job(x):</span><br><span class="line">    return x * x </span><br><span class="line"></span><br><span class="line"># 采用多进程的方式，调用job函数，进行大规模数据处理</span><br><span class="line">def multiProcess():</span><br><span class="line">    # 定义一个Pool对象</span><br><span class="line">    pool = mp.Pool()</span><br><span class="line">    # 有了该对象后，就可将进程池与进程执行体函数映射起来。我们往该池里丢数据，池子会执行该函数，并返回值。有返回值，是Pool与process最大的不同。</span><br><span class="line">    res = pool.map(job, range(10))</span><br><span class="line">    print(res)</span><br><span class="line">    res = pool.apply_async(job,(2,)) # 采用迭代异步方式调用进程池中的进程进行数据处理</span><br><span class="line">    print(res.get())</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    multiProcess()</span><br></pre></td></tr></table></figure>
+
+<p>代码执行结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[0, 1, 4, 9, 16, 25, 36, 49, 64, 81]</span><br><span class="line">4</span><br></pre></td></tr></table></figure>
+
+<p>如果强硬给apply_async()传入多个值，是会报错了。实在要让它能处理多条数据，并输出多条结果，可以采用迭代的途径来实现。请参见样例代码6：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"></span><br><span class="line">import multiprocessing as mp</span><br><span class="line"></span><br><span class="line"># 定义进程执行体函数，该函数将进行较大规模的数据处理</span><br><span class="line">def job(x):</span><br><span class="line">    return x * x </span><br><span class="line"></span><br><span class="line"># 采用多进程的方式，调用job函数，进行大规模数据处理</span><br><span class="line">def multiProcess():</span><br><span class="line">    pool = mp.Pool() </span><br><span class="line">    res = pool.map(job, range(10))</span><br><span class="line">    print(res)</span><br><span class="line">    res = pool.apply_async(job, (2,))</span><br><span class="line">    # 用get获得结果</span><br><span class="line">    print(res.get())</span><br><span class="line">    # 迭代器，i=0时apply一次，i=1时apply一次等等</span><br><span class="line">    multi_res = [pool.apply_async(job, (i,)) for i in range(10)]</span><br><span class="line">    # 从迭代器中取出</span><br><span class="line">    print([res.get() for res in multi_res])</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    multiProcess()</span><br></pre></td></tr></table></figure>
+
+<p>代码执行结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[0, 1, 4, 9, 16, 25, 36, 49, 64, 81] # map输出</span><br><span class="line">4</span><br><span class="line">[0, 1, 4, 9, 16, 25, 36, 49, 64, 81] # apply_async多输出</span><br></pre></td></tr></table></figure>
+
+<h1 id="共享内存与进程锁"><a href="#共享内存与进程锁" class="headerlink" title="共享内存与进程锁"></a>共享内存与进程锁</h1><p>数据处理过程中，多个进程间可能需要交流，此时自然就会用到共享内存。<br>multiprocessing中实现了一个Value类，其对象就是将数据存储在一个共享的内存表中。<br>另外，multiprocessing模块中，还实现了一个Array类，用来在共享内存中存放一维数组。<br>不管Value对象，还是Array对象定义时，除了要指定数据外，还要指定数据的类型。可用的数据类型参数如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">| Type code | C Type             | Python Type       | Minimum size in bytes |</span><br><span class="line">| --------- | ------------------ | ----------------- | --------------------- |</span><br><span class="line">| `&apos;b&apos;`     | signed char        | int               | 1                     |</span><br><span class="line">| `&apos;B&apos;`     | unsigned char      | int               | 1                     |</span><br><span class="line">| `&apos;u&apos;`     | Py_UNICODE         | Unicode character | 2                     |</span><br><span class="line">| `&apos;h&apos;`     | signed short       | int               | 2                     |</span><br><span class="line">| `&apos;H&apos;`     | unsigned short     | int               | 2                     |</span><br><span class="line">| `&apos;i&apos;`     | signed int         | int               | 2                     |</span><br><span class="line">| `&apos;I&apos;`     | unsigned int       | int               | 2                     |</span><br><span class="line">| `&apos;l&apos;`     | signed long        | int               | 4                     |</span><br><span class="line">| `&apos;L&apos;`     | unsigned long      | int               | 4                     |</span><br><span class="line">| `&apos;q&apos;`     | signed long long   | int               | 8                     |</span><br><span class="line">| `&apos;Q&apos;`     | unsigned long long | int               | 8                     |</span><br><span class="line">| `&apos;f&apos;`     | float              | float             | 4                     |</span><br><span class="line">| `&apos;d&apos;`     | double             | float             | 8                     |</span><br></pre></td></tr></table></figure>
+
+<p>当多进程同时访问共享内存对象时，没有进程锁，整个程序的执行是会乱套的。下面样例代码7就是没使用进程锁的情形：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"></span><br><span class="line">import multiprocessing as mp</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line"># 定义进程执行体函数，该函数将进行较大规模的数据处理</span><br><span class="line">def job(v, num): # v是共享内存对象</span><br><span class="line">    for _ in range(5):</span><br><span class="line">    	time.sleep(0.1)  # 让进程暂停0.1秒，以便其它进程获得共享内存的访问权，从而让输出效果更明显</span><br><span class="line">    	v.value += num # 对共享内存对象的值，进行访问操作</span><br><span class="line">    	print(v.value, end = &quot;\r\n&quot;)</span><br><span class="line">    	#print(v.value, end=&quot;&quot;)</span><br><span class="line"></span><br><span class="line"># 采用多进程的方式，调用job函数，进行大规模数据处理</span><br><span class="line">def multiProcess():</span><br><span class="line">    v = mp.Value(&apos;i&apos;, 0) # 定义共享变量</span><br><span class="line">    p1 = mp.Process(target=job, args=(v,1))</span><br><span class="line">    p2 = mp.Process(target=job, args=(v,3)) # 两个进程使用不同的num，从而方便查看两个进程是如何抢夺共享内存的访问权</span><br><span class="line">    p1.start()</span><br><span class="line">    p2.start()</span><br><span class="line">    p1.join()</span><br><span class="line">    p2.join()</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    multiProcess()</span><br></pre></td></tr></table></figure>
+
+<p>代码执行情况如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">20</span><br></pre></td></tr></table></figure>
+
+<p>从结果来看，两个进程交替对共享内存的数据，进行着修改，这种抢占，会让两进程对共享内存中的数据都无所适从。<br>为此，我们对共享内存的访问一定要加上进程锁。参见样例代码8：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"></span><br><span class="line">import multiprocessing as mp</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line"># 定义进程执行体函数，该函数将进行较大规模的数据处理</span><br><span class="line">def job(v, num, lock): # v是共享内存对象</span><br><span class="line">    lock.acquire() # 上锁</span><br><span class="line">    for _ in range(5):</span><br><span class="line">    	time.sleep(0.1)  # 让进程暂停0.1秒，以便其它进程获得共享内存的访问权，从而让输出效果更明显</span><br><span class="line">    	v.value += num # 对共享内存对象的值，进行访问操作</span><br><span class="line">    	print(v.value, end = &quot;\r\n&quot;)</span><br><span class="line">    	#print(v.value, end=&quot;&quot;)</span><br><span class="line">    lock.release() # 释放锁</span><br><span class="line"></span><br><span class="line"># 采用多进程的方式，调用job函数，进行大规模数据处理</span><br><span class="line">def multiProcess():</span><br><span class="line">    lock = mp.Lock() # 定义一个进程锁</span><br><span class="line">    v = mp.Value(&apos;i&apos;, 0) # 定义共享对象</span><br><span class="line">    p1 = mp.Process(target=job, args=(v,1,lock))</span><br><span class="line">    p2 = mp.Process(target=job, args=(v,3,lock)) # 两个进程使用不同的num，从而方便查看两个进程是如何抢夺共享内存的访问权</span><br><span class="line">    p1.start()</span><br><span class="line">    p2.start()</span><br><span class="line">    p1.join()</span><br><span class="line">    p2.join()</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    multiProcess()</span><br></pre></td></tr></table></figure>
+
+<p>代码执行结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">8</span><br><span class="line">11</span><br><span class="line">14</span><br><span class="line">17</span><br><span class="line">20</span><br></pre></td></tr></table></figure>
+
+<p>从结果来看，虽然进程会进入睡眠，让出CPU执行权，但由于它先拿住了进程锁，这样，在它访问完共享内存前，进程2是无法访问共享内存的，因此结果是2个进程对共享内存的顺序处理结果。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/assets/DongaoAILearning_2.jpg" alt="Tony&Lily wechat" style="width: 200px; max-width: 100%;">
+    <div>您可以扫描上面的二维码，关注我哦！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您也可以给我们打赏哦！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/assets/WeixinPay.jpg" alt="Tony&Lily 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Tony&Lily
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://dongaomainland.github.io/2019/09/28/python多进程/" title="python多进程">https://dongaomainland.github.io/2019/09/28/python多进程/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/零基础/" rel="tag"># 零基础</a>
+          
+            <a href="/tags/Python语言/" rel="tag"># Python语言</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/27/python中的多线程/" rel="next" title="python中的多线程">
+                <i class="fa fa-chevron-left"></i> python中的多线程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/assets/dongaomainland_9.jpg" alt="Tony&Lily">
+            
+              <p class="site-author-name" itemprop="name">Tony&Lily</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/DongAoMainland" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/u/6073794892" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://dongaomainland.github.io/" title="东澳大陆" target="_blank">东澳大陆</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#增加进程"><span class="nav-number">1.</span> <span class="nav-text">增加进程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据处理进程将数据输入输出到Queue"><span class="nav-number">2.</span> <span class="nav-text">数据处理进程将数据输入输出到Queue</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多线程与多进程间的效率对比"><span class="nav-number">3.</span> <span class="nav-text">多线程与多进程间的效率对比</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#进程池"><span class="nav-number">4.</span> <span class="nav-text">进程池</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#共享内存与进程锁"><span class="nav-number">5.</span> <span class="nav-text">共享内存与进程锁</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tony&Lily</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      为与第
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      个您<i class="fa fa-user"></i>相遇
+    </span>
+  
+
+  
+    <span class="site-pv">
+      我人群中回眸<i class="fa fa-eye"></i>了
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn.jsdelivr.net/npm/valine@1.3.9/dist/Valine.min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'RKwMznTkQ8YPJTTiPyWH40ql-gzGzoHsz',
+        appKey: 'EJCbRfquXcW6FhBaUABiuiHl',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "./public/search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+     <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;"></canvas> 
+
+     <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+
+     <script type="text/javascript" src="/js/src/fireworks.js"></script>
+
+  
+</body>
+</html>
