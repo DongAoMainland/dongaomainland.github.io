@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>python之pickle保存</title>
+      <link href="/2019/09/29/python%E4%B9%8Bpickle%E4%BF%9D%E5%AD%98/"/>
+      <url>/2019/09/29/python%E4%B9%8Bpickle%E4%BF%9D%E5%AD%98/</url>
+      
+        <content type="html"><![CDATA[<p>数据除了要保存在内存，有时，还需要进行序列化，保存到磁盘上。python标准库中的pickle模块，就提供了文件的压缩、保存与提取功能。</p><a id="more"></a><h1 id="数据保存"><a href="#数据保存" class="headerlink" title="数据保存"></a>数据保存</h1><p>下面样例代码1，使用pickle模块，对字典数据进行了压缩并保存。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"></span><br><span class="line">import pickle</span><br><span class="line">aDict = &#123;&apos;da&apos;:1,2:[3,4,5], &apos;23&apos;:&#123;6:7, &apos;c&apos;:&apos;bad guy&apos;&#125;&#125;</span><br><span class="line"></span><br><span class="line"># 打开一文件，指向一后缀名为.pickle的文件，该文件就是一个pickle文件对象</span><br><span class="line">file = open(&apos;adict.pickle&apos;,&apos;wb&apos;) # wd表示拥有该文件的进行二机制数据的写操作权限</span><br><span class="line">pickle.dump(aDict, file)</span><br></pre></td></tr></table></figure><p>代码1执行后，会在程序目录下生成文件adict.picle：<br>![adict.pickle如不存在，会新生成]/images/assets/ailearning/picklesave.png</p><h1 id="数据提取"><a href="#数据提取" class="headerlink" title="数据提取"></a>数据提取</h1><p>提取保存在pickle文件中的数据，就是以读的方式，打开文件，并调用pickle模块的load()方法，对数据进行加载即可。具体参见样例代码2：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"></span><br><span class="line">import pickle</span><br><span class="line"></span><br><span class="line"># 打开一文件，指向一后缀名为.pickle的文件，该文件就是一个pickle文件对象</span><br><span class="line">with open(&apos;adict.pickle&apos;,&apos;rb&apos;) as file: # rd表示拥有该文件的进行二机制数据的读操作权限</span><br><span class="line">aDict = pickle.load(file)</span><br><span class="line"></span><br><span class="line">print(aDict)</span><br></pre></td></tr></table></figure><p>代码执行结果如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&apos;da&apos;: 1, 2: [3, 4, 5], &apos;23&apos;: &#123;6: 7, &apos;c&apos;: &apos;bad guy&apos;&#125;&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 人工智能学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 零基础 </tag>
+            
+            <tag> Python语言 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>python多进程</title>
       <link href="/2019/09/28/python%E5%A4%9A%E8%BF%9B%E7%A8%8B/"/>
       <url>/2019/09/28/python%E5%A4%9A%E8%BF%9B%E7%A8%8B/</url>
