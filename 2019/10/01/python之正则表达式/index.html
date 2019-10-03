@@ -82,18 +82,18 @@
 
 
 
-<meta name="description" content="前面讲过，人工智能算法牵涉到大量数据处理，其中肯定会有大量的数据迁移，特别在集群环境中，这种数据的拷贝动作会更多。而python拷贝有一深一浅之说，它们之间是有差别的，不弄清楚，很容易就会出错。这里就讲讲python的深拷贝与浅拷贝。">
+<meta name="description" content="现在的数据处理，特别在互联网领域中，很大部分是字符类数据的处理。而该类数据一个主要处理就是：字符或字符串的匹配处理。我们知道这种匹配处理正是正规则表达式的用武之地。同样在Python的标准库中，有re模块正是用于字符串匹配发现。这里我们并不打算对正则表达式进行太细的讨论，正则表达式中规则多，各种操作千变万化，我们也记不清。这里主要讲讲python中正则表达式的主体流程，细的匹配规则，可以查找下类似">
 <meta name="keywords" content="零基础,Python语言">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python一深一浅两拷贝">
-<meta property="og:url" content="https://dongaomainland.github.io/2019/09/25/python一深一浅两拷贝/index.html">
+<meta property="og:title" content="python之正则表达式">
+<meta property="og:url" content="https://dongaomainland.github.io/2019/10/01/python之正则表达式/index.html">
 <meta property="og:site_name" content="东澳大陆">
-<meta property="og:description" content="前面讲过，人工智能算法牵涉到大量数据处理，其中肯定会有大量的数据迁移，特别在集群环境中，这种数据的拷贝动作会更多。而python拷贝有一深一浅之说，它们之间是有差别的，不弄清楚，很容易就会出错。这里就讲讲python的深拷贝与浅拷贝。">
+<meta property="og:description" content="现在的数据处理，特别在互联网领域中，很大部分是字符类数据的处理。而该类数据一个主要处理就是：字符或字符串的匹配处理。我们知道这种匹配处理正是正规则表达式的用武之地。同样在Python的标准库中，有re模块正是用于字符串匹配发现。这里我们并不打算对正则表达式进行太细的讨论，正则表达式中规则多，各种操作千变万化，我们也记不清。这里主要讲讲python中正则表达式的主体流程，细的匹配规则，可以查找下类似">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-27T06:35:35.113Z">
+<meta property="og:updated_time" content="2019-10-03T15:03:30.402Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="python一深一浅两拷贝">
-<meta name="twitter:description" content="前面讲过，人工智能算法牵涉到大量数据处理，其中肯定会有大量的数据迁移，特别在集群环境中，这种数据的拷贝动作会更多。而python拷贝有一深一浅之说，它们之间是有差别的，不弄清楚，很容易就会出错。这里就讲讲python的深拷贝与浅拷贝。">
+<meta name="twitter:title" content="python之正则表达式">
+<meta name="twitter:description" content="现在的数据处理，特别在互联网领域中，很大部分是字符类数据的处理。而该类数据一个主要处理就是：字符或字符串的匹配处理。我们知道这种匹配处理正是正规则表达式的用武之地。同样在Python的标准库中，有re模块正是用于字符串匹配发现。这里我们并不打算对正则表达式进行太细的讨论，正则表达式中规则多，各种操作千变万化，我们也记不清。这里主要讲讲python中正则表达式的主体流程，细的匹配规则，可以查找下类似">
 
 
 
@@ -123,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="https://dongaomainland.github.io/2019/09/25/python一深一浅两拷贝/">
+  <link rel="canonical" href="https://dongaomainland.github.io/2019/10/01/python之正则表达式/">
 
 
 
 
 
-  <title>python一深一浅两拷贝 | 东澳大陆</title>
+  <title>python之正则表达式 | 东澳大陆</title>
   
 
 
@@ -299,7 +299,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://dongaomainland.github.io/2019/09/25/python一深一浅两拷贝/">
+    <link itemprop="mainEntityOfPage" href="https://dongaomainland.github.io/2019/10/01/python之正则表达式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Tony&Lily">
@@ -316,7 +316,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">python一深一浅两拷贝</h1>
+          <h1 class="post-title" itemprop="name headline">python之正则表达式</h1>
         
 
         <div class="post-meta">
@@ -328,8 +328,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-25T20:08:45+08:00">
-                2019-09-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-01T16:57:52+08:00">
+                2019-10-01
               </time>
             
 
@@ -369,8 +369,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/09/25/python一深一浅两拷贝/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/09/25/python一深一浅两拷贝/" itemprop="commentCount"></span>
+                <a href="/2019/10/01/python之正则表达式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/10/01/python之正则表达式/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -397,7 +397,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  782
+                  1.8k
                 </span>
               
 
@@ -413,7 +413,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  7
                 </span>
               
             </div>
@@ -434,25 +434,78 @@
       
 
       
-        <p>前面讲过，人工智能算法牵涉到大量数据处理，其中肯定会有大量的数据迁移，特别在集群环境中，这种数据的拷贝动作会更多。而python拷贝有一深一浅之说，它们之间是有差别的，不弄清楚，很容易就会出错。这里就讲讲python的深拷贝与浅拷贝。</p>
+        <p>现在的数据处理，特别在互联网领域中，很大部分是字符类数据的处理。而该类数据一个主要处理就是：字符或字符串的匹配处理。我们知道这种匹配处理正是正规则表达式的用武之地。同样在Python的标准库中，有re模块正是用于字符串匹配发现。<br>这里我们并不打算对正则表达式进行太细的讨论，正则表达式中规则多，各种操作千变万化，我们也记不清。这里主要讲讲python中正则表达式的主体流程，细的匹配规则，可以查找下类似下面的文档或手册：<br>[Python正则表达式指南]<a href="https://www.cnblogs.com/huxi/archive/2010/07/04/1771073.html" target="_blank" rel="noopener">https://www.cnblogs.com/huxi/archive/2010/07/04/1771073.html</a></p>
 <a id="more"></a>
-<h1 id="id"><a href="#id" class="headerlink" title="id"></a>id</h1><p>我们知道，python是种纯面向对象的语言，它把一切都当作对象，包括算法要处理的数据。而对象是具体的，因此都有唯一性，为了标识这种唯一性，因此都会有一个id值。而对于Python的解释器来讲，id就是该对象在内存的“地址”。下面我们通过样例代码1来进一步理解它：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"></span><br><span class="line">import copy # copy是python标准库进行数据深、浅拷贝的模块</span><br><span class="line">listA = [1,2,3]</span><br><span class="line">listB = listA</span><br><span class="line"></span><br><span class="line">print(id(listA))</span><br><span class="line">print(id(listB))</span><br><span class="line">print(id(listA) == id(listB))</span><br><span class="line"></span><br><span class="line">listB[0] = 111111 # 修改listB中第一个元素的值，会导致listA的对应元素的值也改变</span><br><span class="line">print(listA, listB)</span><br></pre></td></tr></table></figure>
 
-<p>代码1执行结果：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">2428878144136</span><br><span class="line">2428878144136</span><br><span class="line">True # 说明两个对象的id是相等的</span><br><span class="line">[111111, 2, 3] [111111, 2, 3] # 说明listA与listB两个变量指向的是同一个对象</span><br></pre></td></tr></table></figure>
+<h1 id="简单的匹配"><a href="#简单的匹配" class="headerlink" title="简单的匹配"></a>简单的匹配</h1><p>假设我们要在“dog find the cat”，这句话中寻找是否存在”cat”，或者”bird”。首先我们可能会想到使用常规的方法来实现这个功能，参见下面的样例代码1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"></span><br><span class="line"># 匹配字符串</span><br><span class="line">pattern1 = &apos;cat&apos;</span><br><span class="line">pattern2 = &apos;bird&apos;</span><br><span class="line">string1 = &quot;dog find the cat&quot;</span><br><span class="line">print(pattern1 in string1)</span><br><span class="line">print(pattern2 in string1)</span><br></pre></td></tr></table></figure>
 
-<h1 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h1><p>有了前面关于id的知识，再来理解浅拷贝就容易了。浅拷贝只是拷贝对象的内容。看样例代码2：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"></span><br><span class="line">import copy # copy是python标准库进行数据深、浅拷贝的模块</span><br><span class="line">listA = [1,2,3]</span><br><span class="line">listC = copy.copy(listA) # 拷贝对象listA的内容</span><br><span class="line"></span><br><span class="line">print(id(listA))</span><br><span class="line">print(id(listC))</span><br><span class="line">print(id(listA) == id(listC))</span><br><span class="line"></span><br><span class="line">listC[0] = 111111 # 修改lisC中第一个元素的值，listA的对应元素的值不改变</span><br><span class="line">print(listA, listC)</span><br></pre></td></tr></table></figure>
+<p>代码执行结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">True</span><br><span class="line">False</span><br></pre></td></tr></table></figure>
 
-<p>代码2执行结果：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">2076272050504</span><br><span class="line">2076271544264</span><br><span class="line">False # 说明两个对象的id不相同</span><br><span class="line">[1, 2, 3] [111111, 2, 3] # 说明listC的修改，只会影响变量listC的值，listA没影响</span><br></pre></td></tr></table></figure>
+<p>从结果来看，是可以找到指定的字符串的。<br>但我们通常不会这样进行字符串的匹配，而是会使用python的标准模块re，调用该模块的search()方法，匹配到则返回相应的object，如没有匹配到，则返回none。<br>具体参见样例代码2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line">import re # 引入re模块</span><br><span class="line"></span><br><span class="line"># 通过正则表达式匹配字符串</span><br><span class="line">pattern1 = &apos;cat&apos;</span><br><span class="line">pattern2 = &apos;bird&apos;</span><br><span class="line">string1 = &quot;dog find the cat&quot;</span><br><span class="line">print(re.search(pattern1, string1))</span><br><span class="line">print(re.search(pattern2, string1))</span><br></pre></td></tr></table></figure>
 
-<h1 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h1><p>浅拷贝对于对象的内部对象或元素，仍然是直接引用，而深拷贝，除了对对象本身进行拷贝，对其内部对象不再是地址的引用，也会是内容的拷贝。请看样例代码3：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"></span><br><span class="line">import copy # copy是python标准库进行数据深、浅拷贝的模块</span><br><span class="line">listA = [1,2,[3,4]] # 第三个值为列表，其值为[3,4]，它是个内部元素</span><br><span class="line">listC = copy.copy(listA) # 浅拷贝，对于listA内部元素[3,4]，拷贝的是它的引用</span><br><span class="line"></span><br><span class="line">print(id(listA) == id(listC))</span><br><span class="line">print(id(listA[2]) == id(listC[2]))</span><br><span class="line">listA[2][0] = 3333 # 修改listA中内部元素的第一个值</span><br><span class="line">print(listC) # 内部元素对应的值也应以身试法</span><br><span class="line"></span><br><span class="line"># copy.deepcopy()</span><br><span class="line">listD = copy.deepcopy(listA) # listD对listA进行了深拷贝</span><br><span class="line">listA[2][0] = 444</span><br><span class="line">print(listD)</span><br></pre></td></tr></table></figure>
+<p>代码执行结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;re.Match object; span=(13, 16), match=&apos;cat&apos;&gt;</span><br><span class="line">None</span><br></pre></td></tr></table></figure>
 
-<p>代码3执行结果：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">False	#listC与listA已不是同一个对象</span><br><span class="line">True #listC内部对象[3,4]，与listA内部对象[3,4], ID是一样的，就是同一个对象</span><br><span class="line">[1, 2, [3333, 4]] # listC内部对象的值随listA中内部对象值的修改而修改</span><br><span class="line">[1, 2, [3333, 4]] # listD内部对象的值并没有随listA中内部对象值的修改而修改</span><br></pre></td></tr></table></figure>
+<p>从匹配到的对象里，我们可以看到匹配的字符串，以及字符串在句子中的位置</p>
+<h1 id="灵活的匹配"><a href="#灵活的匹配" class="headerlink" title="灵活的匹配"></a>灵活的匹配</h1><p>如果要找到潜在的多个可能的文字，可以使用“[]”将要匹配的所有字符囊括起来，比如[ab]，就是要的字符可以是“a”，也可以是“b”。但是我们需要在创建的匹配模式pattern前，加上一个”r”，用于表示接下来的字符串”…”，不是普通的字符串，而是正则表达式。具体参见样例代码3：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line">import re # 引入re模块</span><br><span class="line"></span><br><span class="line"># 通过正则表达式匹配字符串</span><br><span class="line">pattern1 = r&quot;d[io]g&quot;</span><br><span class="line">string1 = &quot;dog find the cat&quot;</span><br><span class="line">print(re.search(pattern1, string1))</span><br></pre></td></tr></table></figure>
+
+<p>代码执行结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;re.Match object; span=(0, 3), match=&apos;dog&apos;&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="重复的匹配"><a href="#重复的匹配" class="headerlink" title="重复的匹配"></a>重复的匹配</h1><p>如果想让某个规则重复使用，也是可实现的，实现的方式有很多种:</p>
+<ul>
+<li><p>*: 规则重复0次或多次；</p>
+</li>
+<li><p>+: 规则重复1次或多次；</p>
+</li>
+<li><ul>
+<li>{n, m}: 规则重复n至m次；</li>
+</ul>
+</li>
+<li><p>{n}: 规则重复n次。<br>参见样例代码4：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line">import re # 引入re模块</span><br><span class="line"></span><br><span class="line"># *: 下面的&apos;b&apos;字符，要被命中了0~n次</span><br><span class="line">print(re.search(r&quot;ab*&quot;, &quot;a&quot;)) # 被命中了0次</span><br><span class="line">print(re.search(r&quot;ab*&quot;, &quot;abbbbbbbb&quot;)) # 被命中了8次</span><br><span class="line"></span><br><span class="line"># +: 下面的&apos;b&apos;字符，要被命中了1~n次</span><br><span class="line">print(re.search(r&quot;ab+&quot;, &quot;a&quot;)) # 被命中了0次</span><br><span class="line">print(re.search(r&quot;ab+&quot;, &quot;abbbbbbbb&quot;)) # 被命中了8次</span><br><span class="line"></span><br><span class="line"># &#123;n, m&#125;: 下面的&apos;b&apos;字符，要被命中了n~m次</span><br><span class="line">print(re.search(r&quot;ab&#123;2,7&#125;&quot;, &quot;a&quot;)) # 被命中了0次</span><br><span class="line">print(re.search(r&quot;ab&#123;9,12&#125;&quot;, &quot;abbbbbbbb&quot;)) # 被命中了8次</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>代码执行结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;re.Match object; span=(0, 1), match=&apos;a&apos;&gt;</span><br><span class="line">&lt;re.Match object; span=(0, 9), match=&apos;abbbbbbbb&apos;&gt;</span><br><span class="line">None</span><br><span class="line">&lt;re.Match object; span=(0, 9), match=&apos;abbbbbbbb&apos;&gt;</span><br><span class="line">None</span><br><span class="line">None</span><br></pre></td></tr></table></figure>
+
+<h1 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h1><p>经常，我们还需要为找到的内容进行分组。通过分组，可以轻松定位到所找到的内容。分组是由()来实现的。下面来看样例代码5：在(\d+)这个组里，找到的是一些数字，而在(.+)这个组里，则可找到”Date: “后面所有内容。使用match.group()方法，会返回所有组的内容，而如果给.group()方法加上一数字，则定位到那个具体组的信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line">import re # 引入re模块</span><br><span class="line"></span><br><span class="line">match = re.search(r&quot;(\d+), Date: (.+)&quot;, &quot;ID: 021523, Date: Feb/12/2017&quot;)</span><br><span class="line">print(match.group())                   # 021523, Date: Feb/12/2017</span><br><span class="line">print(match.group(1))                  # 021523</span><br><span class="line">print(match.group(2))                  # Date: Feb/12/2017</span><br></pre></td></tr></table></figure>
+
+<p>当数据很多，且组很多时，光用数字是很难找到想要的组的。此时，如果有个名字做索引，则会让这个查找方便许多。为此，正则表达式中提供了”?P&lt;名字&gt;”给组定义索引名字的途径。具体参见样例代码6：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line">import re # 引入re模块</span><br><span class="line"></span><br><span class="line">match = re.search(r&quot;(?P&lt;id&gt;\d+), Date: (?P&lt;date&gt;.+)&quot;, &quot;ID: 021523, Date: Feb/12/2017&quot;)</span><br><span class="line">print(match.group(&apos;id&apos;))                # 021523</span><br><span class="line">print(match.group(&apos;date&apos;))              # Date: Feb/12/201</span><br></pre></td></tr></table></figure>
+
+<h1 id="findall"><a href="#findall" class="headerlink" title="findall"></a>findall</h1><p>前面的匹配，都是只找到最开始匹配的第一项，如想要找到所有匹配的项，则请调用findall()方法。来看样例代码7：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line">import re # 引入re模块</span><br><span class="line"></span><br><span class="line"># findall</span><br><span class="line">print(re.findall(r&quot;r[ua]n&quot;, &quot;run ran ren&quot;))    # [&apos;run&apos;, &apos;ran&apos;]</span><br><span class="line"></span><br><span class="line"># | : 表示或的关系</span><br><span class="line">print(re.findall(r&quot;(run|ran)&quot;, &quot;run ran ren&quot;)) # [&apos;run&apos;, &apos;ran&apos;]</span><br></pre></td></tr></table></figure>
+
+<p>代码7执行的结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[&apos;run&apos;, &apos;ran&apos;]</span><br><span class="line">[&apos;run&apos;, &apos;ran&apos;]</span><br></pre></td></tr></table></figure>
+
+<h1 id="replace"><a href="#replace" class="headerlink" title="replace"></a>replace</h1><p>在文本数据的查找处理中，常伴随着要替换查找到的字符。string.replace()方法也有替换字符串的功能，它这是在已字符串的前提下实现的，而使用正规则表达式库re.sub()，可以实现更灵活的字符串匹配，与替换。参见样例代码8：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line">import re # 引入re模块</span><br><span class="line"></span><br><span class="line">print(re.sub(r&quot;finds&quot;, &quot;catches&quot;, &quot;dog finds the cat&quot;))</span><br></pre></td></tr></table></figure>
+
+<p>代码执行结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dog catches the cat</span><br></pre></td></tr></table></figure>
+
+<h1 id="split"><a href="#split" class="headerlink" title="split"></a>split</h1><p>字符串处理常需要将串根据特定的字符进行分割，比如”,”，而正则表达式也提供了split()方法，来实现该功能。参见样例代码9：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line">import re # 引入re模块</span><br><span class="line"></span><br><span class="line">print(re.split(r&quot;[,;\.]&quot;, &quot;a;b,c.d;e&quot;))</span><br></pre></td></tr></table></figure>
+
+<p>代码9的执行结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;, &apos;e&apos;]</span><br></pre></td></tr></table></figure>
+
+<h1 id="compile"><a href="#compile" class="headerlink" title="compile"></a>compile</h1><p>文本处理是相当复杂的，有时写完或写正确一个正则表达式，并不容易。为此re模块提供了compile()方法，可以对编写好的正则表达式，进行编译，编译得到的对象，可以被重复利用，后面可以直接使用该对象，来进行相应字符或字符串的匹配与处理。参见样例代码10：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line">import re # 引入re模块</span><br><span class="line"></span><br><span class="line">compiled_re = re.compile(r&quot;r[ua]n&quot;)</span><br><span class="line">print(compiled_re.search(&quot;dog ran to cat&quot;))</span><br></pre></td></tr></table></figure>
+
+<p>代码10执行结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;re.Match object; span=(4, 7), match=&apos;ran&apos;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>至此，关于python相关的基础知识就先补充到这里。后面在算法学习过程中，碰到python其它的问题时，我们再对它们进一步讲解。</p>
+
       
     </div>
     
@@ -504,7 +557,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://dongaomainland.github.io/2019/09/25/python一深一浅两拷贝/" title="python一深一浅两拷贝">https://dongaomainland.github.io/2019/09/25/python一深一浅两拷贝/</a>
+    <a href="https://dongaomainland.github.io/2019/10/01/python之正则表达式/" title="python之正则表达式">https://dongaomainland.github.io/2019/10/01/python之正则表达式/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -534,8 +587,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/09/24/python几个常用的数据处理机制/" rel="next" title="python几个常用的数据处理机制">
-                <i class="fa fa-chevron-left"></i> python几个常用的数据处理机制
+              <a href="/2019/09/29/python之pickle保存/" rel="next" title="python之pickle保存">
+                <i class="fa fa-chevron-left"></i> python之pickle保存
               </a>
             
           </div>
@@ -543,10 +596,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/09/27/python中的多线程/" rel="prev" title="python中的多线程">
-                python中的多线程 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -713,7 +762,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#id"><span class="nav-number">1.</span> <span class="nav-text">id</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#浅拷贝"><span class="nav-number">2.</span> <span class="nav-text">浅拷贝</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#深拷贝"><span class="nav-number">3.</span> <span class="nav-text">深拷贝</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简单的匹配"><span class="nav-number">1.</span> <span class="nav-text">简单的匹配</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#灵活的匹配"><span class="nav-number">2.</span> <span class="nav-text">灵活的匹配</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重复的匹配"><span class="nav-number">3.</span> <span class="nav-text">重复的匹配</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分组"><span class="nav-number">4.</span> <span class="nav-text">分组</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#findall"><span class="nav-number">5.</span> <span class="nav-text">findall</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#replace"><span class="nav-number">6.</span> <span class="nav-text">replace</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#split"><span class="nav-number">7.</span> <span class="nav-text">split</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#compile"><span class="nav-number">8.</span> <span class="nav-text">compile</span></a></li></ol></div>
             
 
           </div>
